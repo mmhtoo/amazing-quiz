@@ -16,9 +16,7 @@ data class AppConfigEntity(
 
     val rewardExpPerQuizz : Int,
 
-    val requiredExpPerQuizz : Int,
-
-    val issuedAt : LocalDateTime? = null,
+    var issuedAt : LocalDateTime? = null,
 
     val updatedAt : LocalDateTime? = null,
 )
