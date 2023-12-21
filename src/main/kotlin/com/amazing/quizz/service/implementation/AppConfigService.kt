@@ -35,7 +35,7 @@ class AppConfigService (
 
         val savedConfig = appConfigRepo.findById(config.id)
         if(savedConfig.isEmpty){
-            throw Exception("Saved Configuration is missing!")
+            throw Exception("Invalid configuration to update!")
         }
 
         val newConfig = AppConfigEntity(
@@ -46,6 +46,10 @@ class AppConfigService (
             updatedAt = LocalDateTime.now()
         )
         return appConfigRepo.save(newConfig)
+    }
+
+    override fun getConfig(): AppConfigEntity? {
+        return appConfigRepo.findAll()[0]
     }
 
 }

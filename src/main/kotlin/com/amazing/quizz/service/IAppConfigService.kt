@@ -8,4 +8,6 @@ interface IAppConfigService {
 
     fun updateConfig(config: AppConfigEntity) : AppConfigEntity
 
+    fun getConfig() : AppConfigEntity?
+
 }
