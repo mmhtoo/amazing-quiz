@@ -41,8 +41,11 @@ class CheckValidationAspect {
 
         if(binding.hasErrors()){
             val errors = HashMap<String,String?>()
+            print(binding.fieldErrors)
+
             binding.fieldErrors
                 .forEach {
+                    print(it.defaultMessage)
                     errors[it.field] = it.defaultMessage
                 }
             return ResponseEntity.badRequest()
