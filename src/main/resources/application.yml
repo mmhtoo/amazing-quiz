@@ -4,14 +4,20 @@ server:
     context-path: /api
 spring:
   datasource:
-    url: jdbc:mysql://mysql-db/amazing_quizz?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/amazing_quizz?useSSL=false&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+jwt:
+  publicKey: ${PUBLIC_KEY}
+  privateKey: ${PRIVATE_KEY}
+  issuer: amazing-quizz
+  lifetime: 1 # in day
+
