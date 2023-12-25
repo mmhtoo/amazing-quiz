@@ -14,4 +14,6 @@ interface IQuizzCategoryService {
 
     fun isQuizzNameDuplicate(name: String) : Boolean
 
+    fun updateQuizzCategory(name:String, id : Int) : QuizzCategoryEntity
+
 }

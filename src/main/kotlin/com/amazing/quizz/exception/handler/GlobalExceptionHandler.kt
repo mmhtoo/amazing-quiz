@@ -2,6 +2,7 @@ package com.amazing.quizz.exception.handler
 
 import com.amazing.quizz.dto.response.AppResponse
 import com.amazing.quizz.exception.custom.DuplicateEntityException
+import com.amazing.quizz.exception.custom.InvalidEntityException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.BadCredentialsException
@@ -37,6 +38,19 @@ class GlobalExceptionHandler {
                 AppResponse(
                     responseDescription = e.message ?: "Duplicate data!",
                     status = HttpStatus.BAD_REQUEST.value()
+                )
+            )
+    }
+
+    @ExceptionHandler(
+        InvalidEntityException::class
+    )
+    fun handleInvalidEntityException(e : Exception) : ResponseEntity<AppResponse> {
+        return ResponseEntity.unprocessableEntity()
+            .body(
+                AppResponse(
+                    responseDescription = e.message ?: "Invalid request",
+                    status = HttpStatus.UNPROCESSABLE_ENTITY.value()
                 )
             )
     }

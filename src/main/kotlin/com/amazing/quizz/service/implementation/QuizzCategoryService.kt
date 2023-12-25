@@ -2,6 +2,7 @@ package com.amazing.quizz.service.implementation
 
 import com.amazing.quizz.entitiy.QuizzCategoryEntity
 import com.amazing.quizz.exception.custom.DuplicateEntityException
+import com.amazing.quizz.exception.custom.InvalidEntityException
 import com.amazing.quizz.repository.QuizzCategoryRepository
 import com.amazing.quizz.service.IQuizzCategoryService
 import org.springframework.cache.annotation.CacheEvict
@@ -44,6 +45,29 @@ class QuizzCategoryService (
 
     override fun isQuizzNameDuplicate(name: String): Boolean {
         return getQuizzByName(name) != null
+    }
+
+    @CacheEvict( cacheNames = ["quizzCategories"], allEntries = true )
+    override fun updateQuizzCategory(
+        name: String,
+        id: Int
+    ): QuizzCategoryEntity {
+        getQuizzById(id)
+            ?: throw InvalidEntityException("Invalid quizz category to update!")
+
+        val sameNameCategory = getQuizzByName(name)
+
+        if(sameNameCategory != null && sameNameCategory.id != id){
+            throw DuplicateEntityException("Duplicate quizz category!")
+        }
+
+        val quizzCategory = QuizzCategoryEntity(
+            id = id,
+            name = name,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+        )
+        return quizzCategoryRepo.save(quizzCategory)
     }
 
 }
