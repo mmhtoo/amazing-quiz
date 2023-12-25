@@ -35,8 +35,13 @@ class UserPrincipal (
         return true
     }
 
+    // TO DO : linked with verified
     override fun isEnabled(): Boolean {
-        return account.hasVerified
+        return true
+    }
+
+    fun getUser() : AccountEntity {
+        return account
     }
 
 }
