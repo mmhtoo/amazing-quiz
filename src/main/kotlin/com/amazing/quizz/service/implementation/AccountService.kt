@@ -10,8 +10,8 @@ import java.time.LocalDateTime
 
 @Service
 class AccountService (
-    val accountRepo : AccountRepository,
-    val passwordEncoder : PasswordEncoder
+   private val accountRepo : AccountRepository,
+   private val passwordEncoder : PasswordEncoder
 ) : IAccountService {
 
     override fun createNewAccount(dto: RegisterAccountDto): AccountEntity {
@@ -27,7 +27,8 @@ class AccountService (
             createdAt = LocalDateTime.now(),
             followerCount = 0,
             followingCount = 0,
-            password = passwordEncoder.encode(dto.password)
+            password = passwordEncoder.encode(dto.password),
+            hasVerified = false
         )
         return accountRepo.save(accountEntity)
     }

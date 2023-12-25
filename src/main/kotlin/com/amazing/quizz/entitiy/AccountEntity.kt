@@ -31,4 +31,6 @@ data class AccountEntity(
     val followingCount : Int? = 0,
 
     val profileImage : String? = null,
+
+    val hasVerified : Boolean
 )
