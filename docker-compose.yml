@@ -1,0 +1,28 @@
+version: 0.0.1
+services:
+  api:
+    container_name: amazing-dev
+    ports:
+      - 9000:9000
+    build: .
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysql-db/amazing_quizz?useSSL=false&allowPublicKeyRetrieval=true
+      - spring.datasource.username=root
+      - spring.datasource.password=root@123
+    restart: always
+    networks:
+      - amazing_net
+    depends_on:
+      - db
+  db:
+    container_name: mysql-db
+    image: 'mysql:8.0'
+    restart: always
+    environment:
+      MYSQL_DATABASE: amazing_quizz
+      MYSQL_ROOT_PASSWORD: root@123
+    networks:
+      - amazing_net
+networks:
+  amazing_net:
+    driver: bridge
